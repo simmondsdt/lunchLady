@@ -1,5 +1,7 @@
 require 'pry'
 
+require_relative './lunchLadyA'
+
 #sees how much money user has
   #wont let user buy more than how much money there is
   #resets to menu to let user re-choose options
@@ -28,21 +30,37 @@ def choose
 end
 
 def main_menu
+  puts "---Lunch Cafe Menu---"
+  puts "  --Item---Price---Description--"
+  menu_options
+end
+
+def menu_options
+  puts "-Main Dishes-"
+    @main_dish.each { |x, i| puts "  #{x[:item]} -" "- $#{x[:price]} -" "- #{x[:description]}" }
+  puts "--Side Dishes--"
+    @side_dish.each { |x, i| puts "  #{x[:item]} -" "- $#{x[:price]} -" "- #{x[:description]}" }
+  puts "---Dessert Items---"
+    @dessert.each { |x, i| puts "  #{x[:item]} -" "- $#{x[:price]} -" "- #{x[:description]}" }
+  puts "Would you also like to see the nutritional facts? (y/n)"
+  see = gets.strip.downcase
+  if see == 'y'
+    puts "---Nutritional Facts---"
+      puts "-Main Dishes"
+        @main_dish.each { |x, i| puts "  #{x[:item]}" "- #{x[:calories]} cal. -" }
+      puts "--Side Dishes"
+        @side_dish.each { |x, i| puts "  #{x[:item]}" "- #{x[:calories]} cal. -" }
+      puts "---Dessert Items"
+        @dessert.each { |x, i| puts "  #{x[:item]}" "- #{x[:calories]} cal. -" }
+  else
+    menu
+  end
 end
 
 def order
 end
 
 def previous
-end
-
-def main_dish_options
-end
-
-def side_dish_options
-end
-
-def dessert_options
 end
 
 def wallet
@@ -65,6 +83,9 @@ def menu
     when '4'
       puts "Goodbye"
       exit
+    else
+      puts "Please input a valid number."
+      menu
   end
 end
 
